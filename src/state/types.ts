@@ -3,6 +3,7 @@
 export const SET_BOARD_SIZE = 'Set the board size';
 export const ADD_SCORE = 'Add score';
 export const RANDOMIZE_BOARD = 'Randomize the board';
+export const SET_BOARD_VISIBILITY = 'Set board visibility';
 
 interface SetBoardSizeAction {
   type: typeof SET_BOARD_SIZE;
@@ -24,7 +25,13 @@ interface RandomizeBoardAction {
   }
 }
 
+interface SetBoardVisibilityAction {
+  type: typeof SET_BOARD_VISIBILITY;
+  visibility: boolean;
+}
+
 export type RectballAction =
   | AddScoreAction
   | RandomizeBoardAction
   | SetBoardSizeAction
+  | SetBoardVisibilityAction

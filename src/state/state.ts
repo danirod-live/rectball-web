@@ -1,5 +1,5 @@
 import { generateBoard, randomize, State } from './models';
-import { ADD_SCORE, RANDOMIZE_BOARD, SET_BOARD_SIZE, RectballAction } from './types';
+import { ADD_SCORE, RANDOMIZE_BOARD, SET_BOARD_SIZE, SET_BOARD_VISIBILITY, RectballAction } from './types';
 
 // TODO: Import this from redux-types
 type Action = {
@@ -35,6 +35,10 @@ export function addScore(score: number): RectballAction {
   return { type: ADD_SCORE, score }
 }
 
+export function setBoardVisibility(visibility: boolean): RectballAction {
+  return { type: SET_BOARD_VISIBILITY, visibility }
+}
+
 export function reducer(previousState: State, action: RectballAction): State {
   switch (action.type) {
     case SET_BOARD_SIZE:
@@ -60,6 +64,11 @@ export function reducer(previousState: State, action: RectballAction): State {
         board: randomize(previousState.board, bounds),
       }
     }
+    case SET_BOARD_VISIBILITY:
+      return {
+        ...previousState,
+        board: previousState.board.map(row => row.map(cell => ({ ...cell, showColor: action.visibility })))
+      }
     default:
       console.error({ message: "Unknown action", action })
       return previousState;
