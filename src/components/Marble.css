@@ -1,0 +1,24 @@
+.ball {
+  fill: gray;
+}
+
+.ball-red {
+  fill: #d40000;
+}
+
+.ball-green {
+  fill: #4a0;
+}
+
+.ball-blue {
+  fill: #2a7fff;
+}
+
+.ball-yellow {
+  fill: #fc0;
+}
+
+.ball-glow {
+  fill: white;
+  opacity: 0.2;
+}
