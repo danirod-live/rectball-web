@@ -13,6 +13,7 @@ export interface Marble {
   y: number;
   color: MarbleColor;
   showColor: boolean;
+  active: boolean;
 }
 
 export type Board = Marble[][];
@@ -21,6 +22,7 @@ export interface State {
   size: number;
   board: Board;
   score: number;
+  picked: Position[];
 }
 
 export interface Position {
@@ -38,15 +40,16 @@ export interface Boundaries {
 export function generateBoard(size: number): Board {
   return Array(size)
     .fill(0)
-    .map((_, row) => {
+    .map((_, x) => {
       return Array(size)
         .fill(0)
-        .map((_, col) => {
+        .map((_, y) => {
           return {
-            x: row,
-            y: col,
+            x,
+            y,
             color: MarbleColor.None,
-            showColor: false
+            showColor: false,
+            active: false
           };
         });
     });
@@ -90,4 +93,34 @@ export function shuffleBoard(board: Board, bounds: Boundaries): Board {
       }
     });
   });
+}
+
+export function markPickedInBoard(
+  board: Board,
+  x: number,
+  y: number,
+  picked: boolean
+) {
+  return board.map(row => {
+    return row.map(cell => {
+      if (cell.x === x && cell.y === y) {
+        return { ...cell, active: picked };
+      } else {
+        return cell;
+      }
+    });
+  });
+}
+
+export function updatePickedList(
+  pickList: Position[],
+  x: number,
+  y: number,
+  picked: boolean
+) {
+  if (picked) {
+    return [...pickList, { x, y }];
+  } else {
+    return pickList.filter(item => item.x !== x || item.y !== y);
+  }
 }

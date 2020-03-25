@@ -1,9 +1,15 @@
 import { Board } from "./models";
-import { findCombinations } from "./combinations";
+import { testSelection, findCombinations } from "./combinations";
 
 const toBoard = (b: number[][]): Board =>
   b.map((row, i) =>
-    row.map((col, j) => ({ x: i, y: j, showColor: true, color: col }))
+    row.map((col, j) => ({
+      x: i,
+      y: j,
+      showColor: true,
+      color: col,
+      active: false
+    }))
   );
 
 describe("findCombinations", () => {
@@ -68,5 +74,59 @@ describe("findCombinations", () => {
       expect(combinations).toContainEqual({ x1: 0, y1: 2, x2: 2, y2: 4 });
       expect(combinations).toContainEqual({ x1: 1, y1: 2, x2: 4, y2: 4 });
     });
+  });
+});
+
+describe("testSelection", () => {
+  it("returns false when the selection is not complete", () => {
+    let board = toBoard([
+      [1, 1, 1],
+      [1, 1, 1],
+      [1, 1, 1]
+    ]);
+    expect(testSelection([], board)).toBeFalsy();
+  });
+
+  it("returns false when the selection mismatches color", () => {
+    let board = toBoard([
+      [1, 1],
+      [1, 2]
+    ]);
+    let selection = [
+      { x: 0, y: 0 },
+      { x: 1, y: 0 },
+      { x: 0, y: 1 },
+      { x: 1, y: 1 }
+    ];
+    expect(testSelection(selection, board)).toBeFalsy();
+  });
+
+  it("returns false when the selection is not a square", () => {
+    let board = toBoard([
+      [1, 1, 1],
+      [1, 1, 1],
+      [1, 1, 1]
+    ]);
+    let selection = [
+      { x: 0, y: 0 },
+      { x: 1, y: 0 },
+      { x: 0, y: 1 },
+      { x: 1, y: 2 }
+    ];
+    expect(testSelection(selection, board)).toBeFalsy();
+  });
+
+  it("returns true when the selection is valid", () => {
+    let board = toBoard([
+      [1, 1],
+      [1, 1]
+    ]);
+    let selection = [
+      { x: 0, y: 0 },
+      { x: 1, y: 0 },
+      { x: 0, y: 1 },
+      { x: 1, y: 1 }
+    ];
+    expect(testSelection(selection, board)).toBeTruthy();
   });
 });

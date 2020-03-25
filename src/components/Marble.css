@@ -22,3 +22,13 @@
   fill: white;
   opacity: 0.2;
 }
+
+.marble {
+  transition: 0.1s linear;
+}
+
+.marble-active {
+  transform: scale(0.8);
+  transform-origin: 24px 24px;
+  filter: brightness(75%);
+}
