@@ -7,7 +7,10 @@ import thunk from "redux-thunk";
 import * as serviceWorker from "./serviceWorker";
 import ScoreContainer from "./containers/ScoreContainer";
 import BoardContainer from "./containers/BoardContainer";
+import ScoreEffectContainer from "./containers/ScoreEffectContainer"
 import soundMachine from "./effects/sfx";
+import scoreEffect from "./effects/score";
+
 import {
   reducer,
   setBoardSize,
@@ -17,7 +20,8 @@ import {
 
 import "./index.css";
 
-const store = createStore(reducer, applyMiddleware(thunk, soundMachine));
+const { events: scoreUiEvents, middleware: scoreMiddleware } = scoreEffect()
+const store = createStore(reducer, applyMiddleware(thunk, soundMachine, scoreMiddleware));
 store.dispatch(setBoardSize(8));
 store.dispatch(randomizeBoard());
 store.dispatch(setBoardVisibility(true));
@@ -25,7 +29,10 @@ store.dispatch(setBoardVisibility(true));
 const game = (
   <Provider store={store}>
     <ScoreContainer />
-    <BoardContainer />
+    <div className="board">
+      <ScoreEffectContainer queue={scoreUiEvents} />
+      <BoardContainer />
+    </div>
   </Provider>
 );
 
