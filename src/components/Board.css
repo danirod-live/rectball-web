@@ -1,0 +1,12 @@
+.board-row {
+  display: flex;
+}
+
+.board-grid {
+  padding: 1vw;
+}
+
+.board-ball {
+  flex: 1 1;
+  padding: 0.5vw;
+}

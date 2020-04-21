@@ -3,6 +3,8 @@ import React, { FunctionComponent } from "react";
 import MarbleComponent from "./Marble";
 import { Board, Marble } from "../state/models";
 
+import "./Board.css";
+
 interface BoardProps {
   board: Board;
   onMarbleClicked: (m: Marble) => void;
@@ -14,9 +16,9 @@ const BoardComponent: FunctionComponent<BoardProps> = ({
   board,
   onMarbleClicked
 }) => (
-  <div>
+  <div className="board-grid">
     {board.map((row, i) => (
-      <div key={[i, keyForRow(row)].join("-")}>
+      <div className="board-row" key={[i, keyForRow(row)].join("-")}>
         {row.map(cell => (
           <MarbleComponent
             onMarbleClicked={onMarbleClicked.bind(null, cell)}

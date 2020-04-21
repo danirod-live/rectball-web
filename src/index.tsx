@@ -22,13 +22,15 @@ import "./index.css";
 
 const { events: scoreUiEvents, middleware: scoreMiddleware } = scoreEffect()
 const store = createStore(reducer, applyMiddleware(thunk, soundMachine, scoreMiddleware));
-store.dispatch(setBoardSize(8));
+store.dispatch(setBoardSize(6));
 store.dispatch(randomizeBoard());
 store.dispatch(setBoardVisibility(true));
 
 const game = (
   <Provider store={store}>
-    <ScoreContainer />
+    <div className="hud">
+      <ScoreContainer />
+    </div>
     <div className="board">
       <ScoreEffectContainer queue={scoreUiEvents} />
       <BoardContainer />

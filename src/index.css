@@ -3,6 +3,8 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
+
+  background: #486868;
 }
 
 code {
@@ -13,4 +15,10 @@ code {
 .board {
   text-align: center;
   position: relative;
+}
+
+
+.hud {
+  margin: 1rem 0;
+  text-align: center;
 }
